@@ -1,9 +1,5 @@
-# Naive Bayes 3-class Classifier 
-# Authors: Baktash Ansari - Sina Zamani 
-
-# complete each of the class methods  
-
 from math import log10
+
 
 class NaiveBayesClassifier:
 
@@ -19,6 +15,7 @@ class NaiveBayesClassifier:
         self.vocab = {}
         self.tweet_counts = None
 
+
     def train(self, data):
         # training process:
         # inputs: data(list) --> each item of list is a tuple 
@@ -33,24 +30,23 @@ class NaiveBayesClassifier:
                 else:
                     self.vocab[(feature, label)] = 1
 
+
     def calculate_prior(self, label):
         # calculate log prior
-        # you can add some attributes to this method
-  
         return log10(self.class_counts[label] / self.tweet_counts)
 
-    def calculate_likelihood(self, word, label):
-        # calculate likelihhood: P(word | label)
-        # return the corresponding value
 
+    def calculate_likelihood(self, word, label):
+        # calculate likelihood: P(word | label)
+        # return the corresponding value
         if (word, label) in self.vocab.keys():
             return log10((self.vocab[(word, label)] + 1) / (self.class_word_counts[label] + 3))
         return log10(1 / (self.class_word_counts[label] + 3))
 
+
     def classify(self, features):
         # predict the class
-        # inputs: features(list) --> words of a tweet 
-        
+        # inputs: features(list) --> words of a tweet
         what_class = {'negative': 0, 'neutral': 0, 'positive': 0}
 
         for label in self.classes:
